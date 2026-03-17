@@ -1,8 +1,22 @@
 let items = []
 let editIndex = null
 
-window.onload = loadFile
+window.onload = function()
+{
+loadFile()
 
+// Overlay Klick schließt Fenster
+document.getElementById("overlay").onclick = closeEditor
+
+// ESC Taste schließt Fenster
+document.addEventListener("keydown", function(e) {
+if(e.key === "Escape")
+closeEditor()
+})
+}
+
+
+// ================= LOAD =================
 
 async function loadFile()
 {
@@ -110,6 +124,12 @@ document.getElementById("time").value = 200
 document.getElementById("position").value = 1
 
 document.getElementById("editor").classList.remove("hidden")
+document.getElementById("overlay").classList.remove("hidden")
+
+// Fokus setzen
+setTimeout(() => {
+document.getElementById("id").focus()
+}, 50)
 
 }
 
@@ -123,7 +143,6 @@ let item = items[i]
 // ID korrekt setzen
 document.getElementById("id").value = item.id !== undefined ? item.id : ""
 
-// Rest
 document.getElementById("name").value = item.name || ""
 document.getElementById("type").value = item.type || "linksweiche"
 document.getElementById("decoder").value = item.decoder || "mm2"
@@ -132,6 +151,11 @@ document.getElementById("position").value = item.position || 1
 
 document.getElementById("editor").classList.remove("hidden")
 document.getElementById("overlay").classList.remove("hidden")
+
+// Fokus setzen
+setTimeout(() => {
+document.getElementById("id").focus()
+}, 50)
 
 }
 
@@ -145,6 +169,8 @@ document.getElementById("overlay").classList.add("hidden")
 }
 
 
+// ================= SAVE ITEM =================
+
 function saveItem()
 {
 
@@ -156,6 +182,7 @@ alert("Adresse (ID) muss gesetzt sein")
 return
 }
 
+// doppelte ID verhindern
 if(items.some((i, idx) => i.id === id && idx !== editIndex))
 {
 alert("Adresse bereits vergeben!")
@@ -183,6 +210,8 @@ render()
 }
 
 
+// ================= DELETE =================
+
 function deleteItem(i)
 {
 
@@ -195,7 +224,7 @@ render()
 }
 
 
-// ================= SAVE =================
+// ================= GENERATE =================
 
 function generateCS2()
 {
@@ -217,8 +246,11 @@ text += ` .dectyp=${item.decoder}\n`
 })
 
 return text
+
 }
 
+
+// ================= SAVE FILE =================
 
 async function saveFile()
 {
