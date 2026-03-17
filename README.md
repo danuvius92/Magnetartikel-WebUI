@@ -35,4 +35,4 @@ cd srseii-magnetartikel-webui
 sh install.sh
 ```
 
-WEBUI available at http://<SRSEII-IP>/srseii/magnetartikel.html
+WEBUI available at **http://<SRSEII-IP>/srseii/magnetartikel.html**
