@@ -33,6 +33,6 @@ SSH into your SRSEII device:
 git clone https://github.com/danuvius92/srseii-magnetartikel-webui
 cd srseii-magnetartikel-webui
 sh install.sh
-
+```
 
 WEBUI available at http://<SRSEII-IP>/srseii/magnetartikel.html
