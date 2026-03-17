@@ -73,16 +73,7 @@ function render()
 let tbody = document.querySelector("#table tbody")
 tbody.innerHTML = ""
 
-let filter = document.getElementById("search").value.toLowerCase()
-
 items.forEach((item, index) => {
-
-if(
-(item.name || "").toLowerCase().includes(filter) ||
-(item.type || "").toLowerCase().includes(filter) ||
-String(item.id).includes(filter)
-)
-{
 
 let row = document.createElement("tr")
 
@@ -98,8 +89,6 @@ row.innerHTML = `
 `
 
 tbody.appendChild(row)
-
-}
 
 })
 
@@ -131,21 +120,28 @@ function editItem(i)
 editIndex = i
 let item = items[i]
 
-document.getElementById("id").value = item.id
-document.getElementById("name").value = item.name
-document.getElementById("type").value = item.type
-document.getElementById("decoder").value = item.decoder
-document.getElementById("time").value = item.switchingTime
-document.getElementById("position").value = item.position
+// ID korrekt setzen
+document.getElementById("id").value = item.id !== undefined ? item.id : ""
+
+// Rest
+document.getElementById("name").value = item.name || ""
+document.getElementById("type").value = item.type || "linksweiche"
+document.getElementById("decoder").value = item.decoder || "mm2"
+document.getElementById("time").value = item.switchingTime || 200
+document.getElementById("position").value = item.position || 1
 
 document.getElementById("editor").classList.remove("hidden")
+document.getElementById("overlay").classList.remove("hidden")
 
 }
 
 
 function closeEditor()
 {
+
 document.getElementById("editor").classList.add("hidden")
+document.getElementById("overlay").classList.add("hidden")
+
 }
 
 
