@@ -30,6 +30,9 @@ This tool allows you to view, create, edit, and delete magnet articles (turnouts
 SSH into your SRSEII device:
 
 ```bash
-git clone https://github.com/<your-user>/srseii-magnetartikel-webui
+git clone https://github.com/danuvius92/srseii-magnetartikel-webui
 cd srseii-magnetartikel-webui
 sh install.sh
+
+
+WEBUI available at http://<SRSEII-IP>/srseii/magnetartikel.html
