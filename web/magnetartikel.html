@@ -3,18 +3,18 @@
 
 <head>
 <meta charset="utf-8">
-<title>SRSEII Magnetartikel</title>
+<title>Magnetartikel Verwaltung</title>
 <link rel="stylesheet" href="webui.css">
 </head>
 
 <body>
 
-<h1>SRSEII Magnetartikel</h1>
+<h1>Magnetartikel Verwaltung</h1>
 
 <div class="toolbar">
-<button onclick="newItem()">New</button>
-<button onclick="saveFile()">Save</button>
-<input id="search" placeholder="Search..." oninput="render()">
+<button onclick="newItem()">Neu</button>
+<button onclick="saveFile()">Speichern</button>
+<input id="search" placeholder="Suchen..." oninput="render()">
 </div>
 
 <table id="table">
@@ -22,9 +22,9 @@
 <tr>
 <th>ID</th>
 <th>Name</th>
-<th>Type</th>
+<th>Typ</th>
 <th>Decoder</th>
-<th>Action</th>
+<th>Aktion</th>
 </tr>
 </thead>
 <tbody></tbody>
@@ -33,31 +33,34 @@
 
 <div id="editor" class="modal hidden">
 
-<h2>Magnet Article</h2>
+<h2>Magnetartikel</h2>
+
+<label>Adresse (ID)</label>
+<input id="id" type="number">
 
 <label>Name</label>
 <input id="name">
 
-<label>Type</label>
+<label>Typ</label>
 <select id="type">
 
-<optgroup label="Turnouts">
-<option value="rechtsweiche">Right turnout</option>
-<option value="linksweiche">Left turnout</option>
-<option value="dreiwegweiche">Three-way turnout</option>
-<option value="doppelkreuzungsweiche">Double slip</option>
+<optgroup label="Weichen">
+<option value="rechtsweiche">Rechtsweiche</option>
+<option value="linksweiche">Linksweiche</option>
+<option value="dreiwegweiche">Dreiwegweiche</option>
+<option value="doppelkreuzungsweiche">DKW</option>
 </optgroup>
 
-<optgroup label="Signals">
+<optgroup label="Signale">
 <option value="lichtsignal_HP01">HP0/HP1</option>
 <option value="lichtsignal_HP012">HP0/HP1/HP2</option>
 <option value="lichtsignal_HP012_SH01">HP0/HP1/HP2/Sh1</option>
 <option value="urc_lichtsignal_HP012_SH01">URC Signal</option>
 </optgroup>
 
-<optgroup label="Other">
-<option value="entkuppler">Uncoupler</option>
-<option value="k84">Switch output</option>
+<optgroup label="Sonstiges">
+<option value="entkuppler">Entkuppler</option>
+<option value="k84">Schaltausgang</option>
 </optgroup>
 
 </select>
@@ -68,15 +71,15 @@
 <option value="dcc">DCC</option>
 </select>
 
-<label>Switch Time</label>
+<label>Schaltzeit</label>
 <input id="time" type="number" value="200">
 
 <label>Position</label>
 <input id="position" type="number" value="1">
 
 <div class="buttons">
-<button onclick="saveItem()">Save</button>
-<button onclick="closeEditor()">Cancel</button>
+<button onclick="saveItem()">Speichern</button>
+<button onclick="closeEditor()">Abbrechen</button>
 </div>
 
 </div>

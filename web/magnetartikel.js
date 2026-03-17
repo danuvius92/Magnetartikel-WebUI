@@ -41,7 +41,6 @@ if(line.startsWith("."))
 {
 
 let parts = line.split(/\s*=\s*/)
-
 if(parts.length < 2) return
 
 let key = parts[0].replace(".", "").trim()
@@ -76,15 +75,14 @@ tbody.innerHTML = ""
 
 let filter = document.getElementById("search").value.toLowerCase()
 
-let filtered = items.filter(item =>
+items.forEach((item, index) => {
+
+if(
 (item.name || "").toLowerCase().includes(filter) ||
 (item.type || "").toLowerCase().includes(filter) ||
 String(item.id).includes(filter)
 )
-
-filtered.sort((a,b)=>a.id-b.id)
-
-filtered.forEach((item,i)=>{
+{
 
 let row = document.createElement("tr")
 
@@ -94,12 +92,14 @@ row.innerHTML = `
 <td>${item.type}</td>
 <td>${item.decoder}</td>
 <td>
-<button onclick="editItem(${i})">Edit</button>
-<button class="delete" onclick="deleteItem(${i})">Delete</button>
+<button onclick="editItem(${index})">Bearbeiten</button>
+<button class="delete" onclick="deleteItem(${index})">Löschen</button>
 </td>
 `
 
 tbody.appendChild(row)
+
+}
 
 })
 
@@ -108,18 +108,12 @@ tbody.appendChild(row)
 
 // ================= CRUD =================
 
-function generateNewId()
-{
-let max = 0
-items.forEach(i => { if(i.id > max) max = i.id })
-return max + 1
-}
-
-
 function newItem()
 {
+
 editIndex = null
 
+document.getElementById("id").value = ""
 document.getElementById("name").value = ""
 document.getElementById("type").value = "linksweiche"
 document.getElementById("decoder").value = "mm2"
@@ -127,14 +121,17 @@ document.getElementById("time").value = 200
 document.getElementById("position").value = 1
 
 document.getElementById("editor").classList.remove("hidden")
+
 }
 
 
 function editItem(i)
 {
+
 editIndex = i
 let item = items[i]
 
+document.getElementById("id").value = item.id
 document.getElementById("name").value = item.name
 document.getElementById("type").value = item.type
 document.getElementById("decoder").value = item.decoder
@@ -142,6 +139,7 @@ document.getElementById("time").value = item.switchingTime
 document.getElementById("position").value = item.position
 
 document.getElementById("editor").classList.remove("hidden")
+
 }
 
 
@@ -154,7 +152,19 @@ document.getElementById("editor").classList.add("hidden")
 function saveItem()
 {
 
-let id = editIndex === null ? generateNewId() : items[editIndex].id
+let id = parseInt(document.getElementById("id").value)
+
+if(!id)
+{
+alert("Adresse (ID) muss gesetzt sein")
+return
+}
+
+if(items.some((i, idx) => i.id === id && idx !== editIndex))
+{
+alert("Adresse bereits vergeben!")
+return
+}
 
 let item =
 {
@@ -179,11 +189,13 @@ render()
 
 function deleteItem(i)
 {
-if(confirm("Delete this item?"))
+
+if(confirm("Magnetartikel wirklich löschen?"))
 {
 items.splice(i,1)
 render()
 }
+
 }
 
 
@@ -191,8 +203,6 @@ render()
 
 function generateCS2()
 {
-
-items.sort((a,b)=>a.id-b.id)
 
 let text = "[magnetartikel]\n"
 text += "version\n .minor=1\n"
@@ -216,6 +226,7 @@ return text
 
 async function saveFile()
 {
+
 let text = generateCS2()
 
 await fetch("/cgi-bin/saveMagnetartikel",
@@ -224,6 +235,7 @@ method:"POST",
 body:text
 })
 
-alert("Saved")
+alert("Gespeichert")
 await loadFile()
+
 }
