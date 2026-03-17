@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>SRSEII Magnetartikel</title>
+<link rel="stylesheet" href="webui.css">
+</head>
+
+<body>
+
+<h1>SRSEII Magnetartikel</h1>
+
+<div class="toolbar">
+<button onclick="newItem()">New</button>
+<button onclick="saveFile()">Save</button>
+<input id="search" placeholder="Search..." oninput="render()">
+</div>
+
+<table id="table">
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Type</th>
+<th>Decoder</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+
+
+<div id="editor" class="modal hidden">
+
+<h2>Magnet Article</h2>
+
+<label>Name</label>
+<input id="name">
+
+<label>Type</label>
+<select id="type">
+
+<optgroup label="Turnouts">
+<option value="rechtsweiche">Right turnout</option>
+<option value="linksweiche">Left turnout</option>
+<option value="dreiwegweiche">Three-way turnout</option>
+<option value="doppelkreuzungsweiche">Double slip</option>
+</optgroup>
+
+<optgroup label="Signals">
+<option value="lichtsignal_HP01">HP0/HP1</option>
+<option value="lichtsignal_HP012">HP0/HP1/HP2</option>
+<option value="lichtsignal_HP012_SH01">HP0/HP1/HP2/Sh1</option>
+<option value="urc_lichtsignal_HP012_SH01">URC Signal</option>
+</optgroup>
+
+<optgroup label="Other">
+<option value="entkuppler">Uncoupler</option>
+<option value="k84">Switch output</option>
+</optgroup>
+
+</select>
+
+<label>Decoder</label>
+<select id="decoder">
+<option value="mm2">MM2</option>
+<option value="dcc">DCC</option>
+</select>
+
+<label>Switch Time</label>
+<input id="time" type="number" value="200">
+
+<label>Position</label>
+<input id="position" type="number" value="1">
+
+<div class="buttons">
+<button onclick="saveItem()">Save</button>
+<button onclick="closeEditor()">Cancel</button>
+</div>
+
+</div>
+
+<script src="magnetartikel.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo "Content-Type: text/plain"
+echo ""
+
+BACKUP="/www/config/magnetartikel.cs2.bak"
+TARGET="/www/config/magnetartikel.cs2"
+
+cp $TARGET $BACKUP
+
+cat > $TARGET
+
+echo "OK"
